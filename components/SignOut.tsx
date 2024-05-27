@@ -9,7 +9,7 @@ const SignOut = () => {
 				await signOut();
 			}}
 		>
-			<Button variant="destructive">Sign Out</Button>
+			<Button variant="destructive">Log Out</Button>
 		</form>
 	);
 };

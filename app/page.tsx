@@ -7,10 +7,12 @@ const Home = async () => {
 	const allItems = await database.query.items.findMany();
 
 	return (
-		<div className="container py-8">
+		<div className="px-5 py-4">
 			<NewItemForm />
 
-			<h1 className="mb-4 font-semibold text-2xl">Items on Sale</h1>
+			<h1 className="mb-8 font-josefin_Sans font-semibold text-4xl">
+				Items on Sale
+			</h1>
 
 			{allItems.map((item) => (
 				<div key={item.id}>{item.name}</div>

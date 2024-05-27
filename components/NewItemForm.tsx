@@ -15,10 +15,12 @@ const NewItemForm = async () => {
 
 	return (
 		<div className="max-w-md">
-			<h1 className="font-semibold text-2xl">Add New Item</h1>
+			<h1 className="mb-8 font-josefin_Sans font-semibold text-4xl">
+				Add New Item
+			</h1>
 
 			<form
-				className="mt-4 p-4 bg-slate-50 rounded-lg"
+				className="px-5 py-4 rounded-lg flex flex-col"
 				action={async (formData: FormData) => {
 					"use server";
 
@@ -33,9 +35,9 @@ const NewItemForm = async () => {
 				}}
 			>
 				<Label htmlFor="banner" className="font-semibold">
-					Banner
+					Banner Image
 				</Label>
-				<Input id="banner" name="banner" type="file" className="mb-2" />
+				<Input id="banner" name="banner" type="file" className="mb-4" />
 
 				<Label htmlFor="title" className="font-semibold">
 					Item Name
@@ -44,8 +46,8 @@ const NewItemForm = async () => {
 					required
 					id="name"
 					name="name"
-					placeholder="enter item name"
-					className="mb-2"
+					placeholder="Enter Item Name"
+					className="mb-4"
 				/>
 
 				<Label htmlFor="description" className="font-semibold">
@@ -55,8 +57,8 @@ const NewItemForm = async () => {
 					required
 					id="description"
 					name="description"
-					placeholder="enter description"
-					className="mb-2"
+					placeholder="Add Item Description"
+					className="mb-4"
 					rows={3}
 				/>
 
@@ -67,12 +69,14 @@ const NewItemForm = async () => {
 					required
 					id="price"
 					name="price"
-					placeholder="enter price"
+					placeholder="Enter Price"
 					type="number"
 					className="mb-4"
 				/>
 
-				<Button variant="default">Add Item</Button>
+				<Button variant="default" className="self-end">
+					Add Item
+				</Button>
 			</form>
 		</div>
 	);
