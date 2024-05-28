@@ -1,6 +1,5 @@
 import {
 	integer,
-	numeric,
 	pgTable,
 	primaryKey,
 	serial,
@@ -62,5 +61,5 @@ export const items = pgTable("bb_items", {
 		.references(() => users.id, { onDelete: "cascade" }),
 	name: text("name").notNull(),
 	description: text("description").notNull(),
-	price: integer("price").notNull(),
+	startingPrice: integer("startingPrice").notNull().default(0),
 });

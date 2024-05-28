@@ -27,8 +27,8 @@ const config = {
 					white: "#FFFFFF",
 				},
 				secondary: {
-					dark: "#F3CA52",
-					light: "#F6E9B2",
+					dark: "#DD761C",
+					light: "#FEB941",
 				},
 				alert: {
 					red: "#EE4E4E",

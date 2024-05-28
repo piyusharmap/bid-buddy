@@ -24,9 +24,11 @@ const Header = async () => {
 			</Link>
 
 			<div className="flex gap-2 items-center">
-				<Link href="/create-bid">
-					<Button variant="outline">New Bid</Button>
-				</Link>
+				{session && (
+					<Link href="/create-bid">
+						<Button variant="default">Create Bid</Button>
+					</Link>
+				)}
 
 				{session ? <SignOut /> : <SignIn />}
 
