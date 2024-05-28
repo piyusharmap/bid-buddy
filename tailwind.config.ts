@@ -19,20 +19,19 @@ const config = {
 				"1": "1px",
 			},
 			colors: {
-				background: "#FFF2D7",
+				background: "#F5EFE6",
 				primary: {
-					light: "#A67B5B",
-					dark: "#6F4E37",
-					white: "#FFFFFF",
+					dark: "#1A4D2E",
+					light: "#4F6F52",
 					black: "#000000",
+					white: "#FFFFFF",
 				},
 				secondary: {
-					orange: "#FED8B1",
-					black: "#322C2B",
+					dark: "#F3CA52",
+					light: "#F6E9B2",
 				},
 				alert: {
-					red: "#D24545",
-					green: "#43766C",
+					red: "#EE4E4E",
 				},
 			},
 		},

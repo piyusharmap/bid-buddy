@@ -74,9 +74,7 @@ const NewItemForm = async () => {
 					className="mb-4"
 				/>
 
-				<Button variant="default" className="self-end">
-					Add Item
-				</Button>
+				<Button variant="default">Add Item</Button>
 			</form>
 		</div>
 	);
