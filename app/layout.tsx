@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
-import { Josefin_Sans, Jost } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
+
+import { ThemeProvider } from "@/components/theme-provider";
+
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
 	title: "BidBuddy",
 	description: "BidBuddy | Your Bidding Buddy",
 };
 
-const jost = Jost({
+const fontSans = FontSans({
 	subsets: ["latin"],
-	variable: "--font-jost",
-	display: "swap",
-});
-
-const josefin_Sans = Josefin_Sans({
-	subsets: ["latin"],
-	variable: "--font-josefin_Sans",
-	display: "swap",
+	variable: "--font-sans",
 });
 
 export default function RootLayout({
@@ -28,10 +25,20 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${jost.variable} ${josefin_Sans.variable} bg-primary-monkeyWhite dark:bg-primary-monkeyBlack mx-auto max-w-7xl`}
+				className={cn(
+					"min-h-screen bg-background font-sans antialiased",
+					fontSans.variable
+				)}
 			>
-				<Header />
-				{children}
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<Header />
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);

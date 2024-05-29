@@ -1,45 +1,26 @@
 import { auth } from "@/app/auth";
 import SignIn from "../SignIn";
-import SignOut from "../SignOut";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
+import UserOptions from "./UserOptions";
 import { Button } from "../ui/button";
-import Image from "next/image";
 
 const Header = async () => {
 	const session = await auth();
 
 	return (
-		<div className="px-5 py-4 flex items-center justify-between border-b-1 border-primary-black/15">
-			<Link href="/">
-				<Image
-					src="./bb_logo.svg"
-					alt="BidBuddy"
-					width="50"
-					height="50"
-				/>
-				<p className="font-josefin_Sans font-semibold text-lg">
-					BidBuddy
-				</p>
-			</Link>
+		<div className="mx-auto max-w-7xl px-5 py-4 flex items-center justify-between border-b-1 border-primary-black/15">
+			<div>
+				<Link href="/" className="font-medium hover:text-blue-500">
+					Live Bids
+				</Link>
+			</div>
 
-			<div className="flex gap-2 items-center">
-				{session && (
-					<Link href="/create-bid">
-						<Button variant="default">Create Bid</Button>
-					</Link>
-				)}
+			<div className="flex gap-4 items-center">
+				<Button asChild>
+					<Link href="bid/create">Create Bid</Link>
+				</Button>
 
-				{session ? <SignOut /> : <SignIn />}
-
-				{session && (
-					<Link href="/profile">
-						<Avatar>
-							<AvatarImage src={session?.user?.image || ""} />
-							<AvatarFallback>NA</AvatarFallback>
-						</Avatar>
-					</Link>
-				)}
+				{session ? <UserOptions /> : <SignIn />}
 			</div>
 		</div>
 	);

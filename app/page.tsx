@@ -7,7 +7,7 @@ const Home = async () => {
 
 	return (
 		<div className="mt-4 px-5 py-4">
-			<h1 className="mb-6 font-josefin_Sans font-semibold text-3xl text-primary-dark">
+			<h1 className="mb-6 font-semibold text-3xl text-primary-dark">
 				Items on Sale
 			</h1>
 
