@@ -1,6 +1,6 @@
-import { LogOutIcon } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { Button } from "./ui/button";
 import { signOut } from "@/app/auth";
-import { DropdownMenuItem } from "./ui/dropdown-menu";
 
 const SignOut = () => {
 	return (
@@ -10,10 +10,10 @@ const SignOut = () => {
 				await signOut();
 			}}
 		>
-			<DropdownMenuItem className="flex items-center gap-2 text-red-500">
-				<LogOutIcon size={16} />
-				<p className="font-medium">Log Out</p>
-			</DropdownMenuItem>
+			<Button variant="outline">
+				<LogOut size="16" className="mr-2" />
+				<span className="hidden sm:block">Log Out</span>
+			</Button>
 		</form>
 	);
 };

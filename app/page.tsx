@@ -1,15 +1,22 @@
 import BiddingItem from "@/components/cards/BiddingItem";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 import { database } from "@/db/database";
+import Link from "next/link";
 
 const Home = async () => {
 	const allItems = await database.query.items.findMany();
 
 	return (
-		<div className="mt-4 px-5 py-4">
-			<h1 className="mb-6 font-semibold text-3xl text-primary-dark">
-				Items on Sale
-			</h1>
+		<div className="max-w-7xl mx-auto px-5 py-4 space-y-4">
+			<div className="flex justify-end gap-2">
+				<Button asChild>
+					<Link href="/item/create">Create Bid</Link>
+				</Button>
+			</div>
+
+			<h2 className="font-medium text-xl">Items on Sale</h2>
 
 			<div className="grid grid-cols-4 gap-8">
 				{allItems.map((item) => (

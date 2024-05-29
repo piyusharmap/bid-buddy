@@ -6,27 +6,25 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Frame, Images, User, UserIcon } from "lucide-react";
+import { ImagePlus, Images, User2 } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import SignOut from "../SignOut";
-import { ModeToggle } from "../theme-toggle";
 
-const UserOptions = async () => {
+const UserOptions = async ({ userId }: { userId?: string }) => {
 	const session = await auth();
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
+			<DropdownMenuTrigger asChild className="cursor-pointer">
 				<Avatar>
 					<AvatarImage src={session?.user?.image || ""} />
 					<AvatarFallback>
-						<User />
+						<User2 />
 					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent align="end" className="mt-2">
+			<DropdownMenuContent align="end">
 				{session?.user && (
 					<div className="p-2">
 						<p className="font-semibold">{session?.user?.name}</p>
@@ -40,16 +38,22 @@ const UserOptions = async () => {
 
 				<div className="space-y-2">
 					<DropdownMenuItem asChild>
-						<Link href="/profile" className="p-2 font-medium">
+						<Link
+							href="/profile"
+							className="p-2 font-medium cursor-pointer"
+						>
 							<span className="mr-2">
-								<UserIcon size={16} />
+								<User2 size={16} />
 							</span>
 							Profile
 						</Link>
 					</DropdownMenuItem>
 
 					<DropdownMenuItem asChild>
-						<Link href="/profile" className="p-2 font-medium">
+						<Link
+							href={`/items/${userId}`}
+							className="p-2 font-medium cursor-pointer"
+						>
 							<span className="mr-2">
 								<Images size={16} />
 							</span>
@@ -58,20 +62,17 @@ const UserOptions = async () => {
 					</DropdownMenuItem>
 
 					<DropdownMenuItem asChild>
-						<Link href="/profile" className="p-2 font-medium">
+						<Link
+							href="#"
+							className="p-2 font-medium cursor-pointer"
+						>
 							<span className="mr-2">
-								<Frame size={16} />
+								<ImagePlus size={16} />
 							</span>
-							My Bids
+							Create Bid
 						</Link>
 					</DropdownMenuItem>
-
-					<ModeToggle />
 				</div>
-
-				<DropdownMenuSeparator />
-
-				<SignOut />
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
