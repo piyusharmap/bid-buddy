@@ -11,13 +11,16 @@ const Header = async () => {
 
 	return (
 		<div className="mx-auto max-w-7xl px-5 py-2 flex items-center justify-between border-b border-gray-300 dark:border-gray-800">
-			<Link href="/" className="font-medium">
+			<Link href="/" className="flex items-end gap-2 font-medium">
 				<Image
 					src="./bb_logo.svg"
 					alt="BidBuddy"
 					width="40"
 					height="40"
 				/>
+				<p className="font-semibold text-lg">
+					Bid<span className="text-red-500">Buddy</span>
+				</p>
 			</Link>
 
 			<div className="flex gap-2 items-center">
