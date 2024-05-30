@@ -15,20 +15,18 @@ const Header = async () => {
 				<Image
 					src="./bb_logo.svg"
 					alt="BidBuddy"
-					width="40"
-					height="40"
+					width="35"
+					height="35"
 				/>
-				<p className="font-semibold text-lg">
+				<p className="hidden sm:block font-semibold text-lg">
 					Bid<span className="text-red-500">Buddy</span>
 				</p>
 			</Link>
 
 			<div className="flex gap-2 items-center">
-				<ModeToggle />
-
 				{session ? <SignOut /> : <SignIn />}
 
-				{session && <UserOptions userId={session?.user?.id} />}
+				<UserOptions userId={session?.user?.id} />
 			</div>
 		</div>
 	);

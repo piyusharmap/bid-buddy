@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "lucide-react";
+import { LogOut, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,7 @@ export function ModeToggle() {
 					<span className="sr-only">Toggle theme</span>
 				</Button>
 			</DropdownMenuTrigger>
+
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem onClick={() => setTheme("light")}>
 					Light
@@ -31,10 +32,35 @@ export function ModeToggle() {
 				<DropdownMenuItem onClick={() => setTheme("dark")}>
 					Dark
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("system")}>
-					System
-				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
+	);
+}
+
+export function ModeToggleItem() {
+	const { setTheme, resolvedTheme } = useTheme();
+
+	const handleThemeToggle = () => {
+		if (resolvedTheme === "dark") {
+			setTheme("light");
+		} else {
+			setTheme("dark");
+		}
+	};
+
+	return (
+		<DropdownMenuItem
+			className="p-2 font-medium cursor-pointer"
+			onClick={handleThemeToggle}
+		>
+			{resolvedTheme === "dark" ? (
+				<Sun className="mr-2" size={16} />
+			) : (
+				<Moon className="mr-2" size={16} />
+			)}
+			<p p-2 font-medium cursor-pointer>
+				Toggle Theme
+			</p>
+		</DropdownMenuItem>
 	);
 }

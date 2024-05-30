@@ -10,9 +10,9 @@ const SignOut = () => {
 				await signOut();
 			}}
 		>
-			<Button variant="outline">
-				<LogOut size="16" className="mr-2" />
-				<span className="hidden sm:block">Log Out</span>
+			<Button variant="outline" className="text-red-500">
+				<LogOut size="16" />
+				<span className="ml-2 hidden sm:block">Log Out</span>
 			</Button>
 		</form>
 	);

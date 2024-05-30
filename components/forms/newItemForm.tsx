@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import UnauthorizedAccess from "../UnauthorizedAccess";
-import { createItemAction } from "@/app/item/create/actions";
+import { createItemAction } from "@/app/bid/create/actions";
 
 const NewItemForm = async () => {
 	const session = await auth();
@@ -30,10 +30,10 @@ const NewItemForm = async () => {
 			</div>
 
 			<div className="col-span-2 sm:col-span-1">
-				<Label htmlFor="banner" className="font-semibold">
-					Banner Image
+				<Label htmlFor="endDate" className="font-semibold">
+					End Date
 				</Label>
-				<Input id="banner" name="banner" type="file" />
+				<Input id="endDate" name="endDate" type="date" />
 			</div>
 
 			<div className="row-span-2 col-span-2 sm:col-span-1">
@@ -45,6 +45,7 @@ const NewItemForm = async () => {
 					name="description"
 					placeholder="Enter description"
 					rows={5}
+					className="resize-none"
 				/>
 			</div>
 
@@ -75,16 +76,16 @@ const NewItemForm = async () => {
 				/>
 			</div>
 
-			<p className="col-span-2 font-medium text-red-500 text-sm italic">
+			<p className="col-span-2 font-light text-red-500 text-sm italic text-right">
 				By default the &apos;Interval Bid&apos; is set to $6.9
 			</p>
 
 			<Button variant="secondary" className="col-span-2 sm:col-span-1">
-				Add Item
+				Add to List
 			</Button>
 
 			<Button variant="default" className="col-span-2 sm:col-span-1">
-				Add Item & Bid
+				Bid Now
 			</Button>
 		</form>
 	);
