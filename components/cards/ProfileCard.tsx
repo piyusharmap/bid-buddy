@@ -1,13 +1,14 @@
-import { getUserAction } from "@/app/[userId]/actions";
 import Image from "next/image";
 
-const ProfileCard = async ({ userId }: { userId: string }) => {
-	const user = await getUserAction(userId);
-
-	const name = user[0].name;
-	const email = user[0].email;
-	const imageSrc = user[0].image;
-
+const ProfileCard = async ({
+	name,
+	email,
+	imageSrc,
+}: {
+	name: string | null;
+	email: string;
+	imageSrc: string | null;
+}) => {
 	return (
 		<div className="flex gap-2 items-end flex-wrap">
 			<Image
@@ -19,7 +20,9 @@ const ProfileCard = async ({ userId }: { userId: string }) => {
 			/>
 
 			<div>
-				<h1 className="text-xl sm:text-2xl font-medium">{name}</h1>
+				<h1 className="text-xl sm:text-2xl font-medium">
+					{name ? name : "N/A"}
+				</h1>
 				<p className="text-gray-500">{email}</p>
 			</div>
 		</div>

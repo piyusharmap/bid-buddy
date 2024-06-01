@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { database } from "@/db/database";
 import Link from "next/link";
 import { auth } from "./auth";
-import BiddingItem from "@/components/cards/biddingItem";
+import ItemCard from "@/components/cards/ItemCard";
+import BiddingCard from "@/components/cards/BidItemCard";
 
 const Home = async () => {
 	const session = await auth();
@@ -12,21 +13,22 @@ const Home = async () => {
 	return (
 		<div className="max-w-7xl mx-auto px-5 py-4 space-y-4">
 			<div className="flex justify-end gap-2">
-				<Button disabled={!session}>
-					<Link href="/bid/create">Create Bid</Link>
+				<Button disabled={!session} asChild>
+					<Link href="/item/create">Create Bid</Link>
 				</Button>
 			</div>
 
-			<h2 className="font-medium text-xl">Items on Sale</h2>
+			<h1 className="font-medium text-2xl">Items Available to Bid</h1>
 
-			<div className="grid grid-cols-4 gap-8">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 				{allItems.map((item) => (
-					<BiddingItem
+					<BiddingCard
 						key={item.id}
-						itemName={item.name}
-						itemDescription={item.description}
+						id={item.id}
+						name={item.name}
+						description={item.description}
 						startingPrice={item.startingPrice / 100}
-						className="col-span-4 sm:col-span-2 md:col-span-1"
+						className="col-span-1"
 					/>
 				))}
 			</div>

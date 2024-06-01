@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import UnauthorizedAccess from "../UnauthorizedAccess";
-import { createItemAction } from "@/app/bid/create/actions";
+import { createItemAction } from "@/app/item/create/actions";
 
 const NewItemForm = async () => {
 	const session = await auth();

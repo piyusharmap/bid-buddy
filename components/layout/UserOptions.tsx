@@ -27,12 +27,22 @@ const UserOptions = async ({ userId }: { userId?: string }) => {
 
 			<DropdownMenuContent align="end">
 				<div className="p-2">
-					<p className="font-medium">
-						{session?.user?.name || "Hello, Guest"}
-					</p>
-					<p className="text-sm text-gray-500">
-						{session?.user?.email || "Welcome to BidBuddy"}
-					</p>
+					{session?.user?.name && session?.user?.email ? (
+						<>
+							<p className="font-medium">{session?.user?.name}</p>
+							<p className="text-sm text-gray-500">
+								{session?.user?.email}
+							</p>
+						</>
+					) : (
+						<>
+							<p className="font-medium">Hello, Guest</p>
+							<p className="text-sm text-gray-500">
+								Welcome to Bid
+								<span className="text-red-500/75">Buddy</span>
+							</p>
+						</>
+					)}
 				</div>
 
 				<DropdownMenuSeparator />
@@ -55,7 +65,7 @@ const UserOptions = async ({ userId }: { userId?: string }) => {
 					{session && (
 						<DropdownMenuItem asChild>
 							<Link
-								href="bid/create"
+								href="item/create"
 								className="p-2 font-medium cursor-pointer"
 							>
 								<span className="mr-2">

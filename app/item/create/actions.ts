@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "../../auth";
+import { auth } from "@/app/auth";
 import { database } from "@/db/database";
 import { items as itemsSchema } from "@/db/schema";
 
