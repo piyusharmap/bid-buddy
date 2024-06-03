@@ -10,13 +10,13 @@ const ProfileCard = async ({
   imageSrc: string | null;
 }) => {
   return (
-    <div className='flex gap-2 items-end flex-wrap'>
+    <div className='flex gap-2 items-center flex-wrap'>
       <Image
         src={imageSrc || ''}
         alt='Profile Image'
         width='70'
         height='70'
-        className='rounded-lg border-2 border-gray-500/15'
+        className='border-2 border-gray-500/15 rounded-full'
       />
 
       <div>

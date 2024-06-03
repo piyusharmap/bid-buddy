@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import Image from 'next/image';
 
+import { formatToDollars } from '@/utils/currency';
 import { twMerge } from 'tailwind-merge';
 
 import ItemInfoDialog from '../ItemInfoDialog';
@@ -50,7 +51,7 @@ const ItemCard: FC<ItemCardProps> = ({
         <div className='text-lg flex items-end justify-between gap-2'>
           <p className='flex-1 font-medium truncate'>{name}</p>
 
-          <p className='text-green-500'>${startingPrice}</p>
+          <p className='text-green-500'>${formatToDollars(startingPrice)}</p>
         </div>
 
         <p className='line-clamp-2 font-light opacity-75'>{description}</p>

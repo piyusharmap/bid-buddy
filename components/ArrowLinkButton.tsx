@@ -17,12 +17,12 @@ const ArrowLinkButton = ({
   return (
     <Link
       href={link}
-      className={twMerge(className, 'group flex items-center gap-1')}
+      className={twMerge(className, 'group w-fit flex items-center gap-1')}
     >
       {direction === 'LEFT' && (
         <ArrowLeft
           size={16}
-          className='mx-1 inline group-hover:ml-0 group-hover:mr-2 group-hover:text-red-500 transition-all'
+          className='mx-1 inline group-hover:ml-0 group-hover:mr-2 group-hover:text-gray-500 transition-all'
         />
       )}
 

@@ -1,7 +1,7 @@
 const UnauthorizedAccess = ({ message }: { message: string }) => {
   return (
-    <div className='p-2'>
-      <p className='italic text-lg text-center text-red-500'>{message}</p>
+    <div className='p-4'>
+      <p className='p-4 text-center text-gray-500 italic'>{message}</p>
     </div>
   );
 };

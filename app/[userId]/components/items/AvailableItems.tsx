@@ -17,7 +17,7 @@ const AvailableItems = async ({ userId }: { userId: string }) => {
               id={item.id}
               name={item.name}
               description={item.description}
-              startingPrice={item.startingPrice / 100}
+              startingPrice={item.startingPrice}
               className='col-span-1'
             />
           ))}

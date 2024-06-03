@@ -14,7 +14,7 @@ const Profile = async ({
   const user = await getUserAction(userId);
 
   return (
-    <div className='max-w-7xl mx-auto px-5 py-8 space-y-4'>
+    <div className='max-w-7xl mx-auto px-5 pt-6'>
       {!user ? (
         <EmptyUserState />
       ) : (
@@ -25,24 +25,28 @@ const Profile = async ({
             imageSrc={user.image}
           />
 
-          <Tabs defaultValue='items' className='space-y-4'>
-            <TabsList>
-              <TabsTrigger value='items' className='px-5 font-medium'>
-                Items
-              </TabsTrigger>
+          <Tabs defaultValue='items' className='mt-6 space-y-4'>
+            <div className='flex justify-end'>
+              <TabsList>
+                <TabsTrigger value='items' className='px-5 font-medium'>
+                  Items
+                </TabsTrigger>
 
-              <TabsTrigger value='bids' className='px-5 font-medium'>
-                Bids
-              </TabsTrigger>
-            </TabsList>
+                <TabsTrigger value='bids' className='px-5 font-medium'>
+                  Bids
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value='items' className='space-y-2'>
               <h2 className='font-medium text-xl'>My Items</h2>
+
               <Items userId={userId} />
             </TabsContent>
 
-            <TabsContent value='bids'>
-              <h2 className='mb-4 font-medium text-xl'>My Bids</h2>
+            <TabsContent value='bids' className='space-y-2'>
+              <h2 className='font-medium text-xl'>My Bids</h2>
+
               <Bids userId={userId} />
             </TabsContent>
           </Tabs>

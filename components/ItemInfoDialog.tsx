@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import Image from 'next/image';
 
+import { formatToDollars } from '@/utils/currency';
 import { DialogTitle } from '@radix-ui/react-dialog';
 
 import { DialogDescription, DialogHeader } from './ui/dialog';
@@ -34,7 +35,7 @@ const ItemInfoDialog: FC<ItemInfoProps> = ({
           className='w-full rounded-lg'
         />
 
-        <h2 className='font-medium text-xl'>{name}</h2>
+        <p className='font-medium text-xl'>{name}</p>
 
         <p>
           <span className='block font-medium text-sm text-gray-500'>
@@ -47,7 +48,7 @@ const ItemInfoDialog: FC<ItemInfoProps> = ({
           <span className='block font-medium text-sm text-gray-500'>
             Starting Price
           </span>
-          ${startingPrice}
+          ${formatToDollars(startingPrice)}
         </p>
 
         <div className='flex gap-2'>

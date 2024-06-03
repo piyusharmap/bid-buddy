@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { formatToDollars } from '@/utils/currency';
 import { twMerge } from 'tailwind-merge';
 
 import ItemInfoDialog from '../ItemInfoDialog';
@@ -49,12 +50,12 @@ const BiddingCard: FC<BiddingCardProps> = ({
       </div>
 
       <div className='flex flex-col'>
-        <h4 className='font-medium text-2xl text-red-500'>
-          ${startingPrice}
+        <p className='font-medium text-2xl text-red-500'>
+          ${formatToDollars(startingPrice)}
           <span className='ml-2 font-light text-sm text-gray-500'>
             current bid
           </span>
-        </h4>
+        </p>
 
         <p>
           <span className='mr-1 font-light text-sm text-gray-500'>up by</span>

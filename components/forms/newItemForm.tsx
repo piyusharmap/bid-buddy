@@ -10,7 +10,8 @@ import { Textarea } from '../ui/textarea';
 const NewItemForm = async () => {
   const session = await auth();
 
-  if (!session) return <UnauthorizedAccess message='Sign in to add an item' />;
+  if (!session)
+    return <UnauthorizedAccess message='Sign in to add/bid an item.' />;
 
   return (
     <form

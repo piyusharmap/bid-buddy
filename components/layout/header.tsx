@@ -2,10 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { auth } from '@/app/auth';
+import { PlusCircle } from 'lucide-react';
 
 import HeaderLogo from '../../public/bb_logo.svg';
 import SignIn from '../SignIn';
 import SignOut from '../SignOut';
+import { Button } from '../ui/button';
 import UserOptions from './UserOptions';
 
 const Header = async () => {
@@ -21,6 +23,15 @@ const Header = async () => {
       </Link>
 
       <div className='flex gap-2 items-center'>
+        {session && (
+          <Button asChild>
+            <Link href='/item/create'>
+              <PlusCircle size='16' />
+              <span className='ml-2 hidden sm:block'>Create Item</span>
+            </Link>
+          </Button>
+        )}
+
         {session ? <SignOut /> : <SignIn />}
 
         <UserOptions userId={session?.user?.id} />

@@ -62,20 +62,6 @@ const UserOptions = async ({ userId }: { userId?: string }) => {
             </DropdownMenuItem>
           )}
 
-          {session && (
-            <DropdownMenuItem asChild>
-              <Link
-                href='item/create'
-                className='p-2 font-medium cursor-pointer'
-              >
-                <span className='mr-2'>
-                  <ImagePlus size={16} />
-                </span>
-                Create Bid
-              </Link>
-            </DropdownMenuItem>
-          )}
-
           <ModeToggleItem />
         </div>
       </DropdownMenuContent>

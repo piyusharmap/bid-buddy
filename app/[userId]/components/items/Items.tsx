@@ -5,8 +5,8 @@ import AvailableItems from './AvailableItems';
 const Items = async ({ userId }: { userId: string }) => {
   return (
     <div>
-      <Tabs defaultValue='available' className='flex flex-col'>
-        <TabsList className='self-end'>
+      <Tabs defaultValue='available' className='space-y-4'>
+        <TabsList>
           <TabsTrigger value='available' className='px-5 font-medium'>
             Available
           </TabsTrigger>
