@@ -1,5 +1,5 @@
 const PastBids = () => {
-	return <div>PastBids</div>;
+  return <div>PastBids</div>;
 };
 
 export default PastBids;

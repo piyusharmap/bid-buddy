@@ -1,5 +1,5 @@
 const ExpiredItems = () => {
-	return <div>ExpiredItems</div>;
+  return <div>ExpiredItems</div>;
 };
 
 export default ExpiredItems;

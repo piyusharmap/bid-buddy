@@ -1,45 +1,45 @@
-import type { Metadata } from "next";
-import { REM as FontSans } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/layout/header";
+import type { Metadata } from 'next';
+import { REM as FontSans } from 'next/font/google';
 
-import { ThemeProvider } from "@/components/theme-provider";
+import Header from '@/components/layout/header';
+import { ThemeProvider } from '@/components/theme-provider';
+import { cn } from '@/lib/utils';
 
-import { cn } from "@/lib/utils";
+import './globals.css';
 
 export const metadata: Metadata = {
-	title: "BidBuddy",
-	description: "BidBuddy | Your Bidding Buddy",
+  title: 'BidBuddy',
+  description: 'BidBuddy | Your Bidding Buddy',
 };
 
 const fontSans = FontSans({
-	subsets: ["latin"],
-	variable: "--font-sans",
+  subsets: ['latin'],
+  variable: '--font-sans',
 });
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en">
-			<body
-				className={cn(
-					"min-h-screen bg-background font-sans antialiased",
-					fontSans.variable
-				)}
-			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<Header />
-					{children}
-				</ThemeProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang='en'>
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          fontSans.variable
+        )}
+      >
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

@@ -1,5 +1,5 @@
 const LiveBids = () => {
-	return <div>LiveBids</div>;
+  return <div>LiveBids</div>;
 };
 
 export default LiveBids;
