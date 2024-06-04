@@ -1,9 +1,9 @@
 import ProfileCard from '@/components/cards/profileCard';
 import Container from '@/components/layout/container';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getUser } from '@/data-access/user';
 
 import EmptyUserState from './EmptyState';
-import { getUserAction } from './actions';
 import Bids from './components/bids/Bids';
 import Items from './components/items/Items';
 
@@ -12,7 +12,7 @@ const Profile = async ({
 }: {
   params: { userId: string };
 }) => {
-  const user = await getUserAction(userId);
+  const user = await getUser(userId);
 
   if (!user) {
     return (

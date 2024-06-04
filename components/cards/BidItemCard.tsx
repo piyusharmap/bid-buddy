@@ -59,7 +59,7 @@ const BiddingCard: FC<BiddingCardProps> = ({
 
       <p className='text-xl sm:text-2xl text-right text-red-500'>
         <span className='font-light text-sm text-gray-500'>Current Bid: </span>
-        {currentBid === 0 ? 'N/A' : '$' + formatToDollars(currentBid)}
+        {currentBid === 0 ? 'nil' : '$' + formatToDollars(currentBid)}
       </p>
 
       <div className='mt-4 flex gap-2'>
