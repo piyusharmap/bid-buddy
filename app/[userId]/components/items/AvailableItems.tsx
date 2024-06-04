@@ -1,4 +1,4 @@
-import ItemCard from '@/components/cards/ItemCard';
+import ItemCard from '@/components/cards/itemCard';
 
 import { getUserItemsAction } from './actions';
 
@@ -18,6 +18,7 @@ const AvailableItems = async ({ userId }: { userId: string }) => {
               name={item.name}
               description={item.description}
               startingPrice={item.startingPrice}
+              bidInterval={item.bidInterval}
               className='col-span-1'
             />
           ))}

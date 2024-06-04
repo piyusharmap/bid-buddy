@@ -58,7 +58,7 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
               <span className='font-medium text-red-500'>{item.name}</span>
             </h1>
 
-            <div className='h-52 sm:h-80 rounded-lg overflow-hidden'>
+            <div className='h-52 sm:h-80'>
               <Image
                 src={PlaceholderImage}
                 alt='Not Available'

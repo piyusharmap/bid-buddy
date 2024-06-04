@@ -1,19 +1,19 @@
 import { FC } from 'react';
 
-import Image from 'next/image';
-
 import { formatToDollars } from '@/utils/currency';
+import { FileImage } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
-import ItemInfoDialog from '../ItemInfoDialog';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
+import ItemInfoDialog from './itemInfo';
 
-type ItemCardProps = {
+export type ItemCardProps = {
   id: number;
   name: string;
   description: string;
   startingPrice: number;
+  bidInterval: number;
   className?: string;
   isExpired?: boolean;
 };
@@ -23,6 +23,7 @@ const ItemCard: FC<ItemCardProps> = ({
   name,
   description,
   startingPrice,
+  bidInterval,
   className,
   isExpired,
 }) => {
@@ -30,32 +31,25 @@ const ItemCard: FC<ItemCardProps> = ({
     <div
       className={twMerge(
         className,
-        'flex flex-col gap-2 p-4 rounded-lg border border-gray-500/15 hover:shadow-lg hover:border-gray-500/50 hover:rounded-sm cursor-default'
+        'flex flex-col p-4 rounded-lg border border-gray-500/15 hover:shadow-lg hover:border-gray-500/50 cursor-default'
       )}
     >
+      <p className='truncate'>{name}</p>
+
       {isExpired ? (
-        <p className='text-sm text-orange-500'>Ended on:</p>
+        <p className='text-xs sm:text-sm text-orange-500'>Ended on:</p>
       ) : (
-        <p className='text-sm text-gray-500'>Available Till:</p>
+        <p className='tex-xs sm:text-sm text-gray-500'>Available Till:</p>
       )}
 
-      <Image
-        src='./placeholder_image.svg'
-        alt='Item Image'
-        width='100'
-        height='100'
-        className='w-full rounded-sm'
-      />
-
-      <div className='flex-1 space-y-1'>
-        <div className='text-lg flex items-end justify-between gap-2'>
-          <p className='flex-1 font-medium truncate'>{name}</p>
-
-          <p className='text-green-500'>${formatToDollars(startingPrice)}</p>
-        </div>
-
-        <p className='line-clamp-2 font-extralight opacity-75'>{description}</p>
+      <div className='my-2 h-40 sm:h-52 flex items-center justify-center rounded-sm bg-black/15 dark:bg-white/15'>
+        <FileImage size='30' />
       </div>
+
+      <p className='text-base sm:text-xl text-right'>
+        <span className='text-sm text-gray-500'>Starting price: </span>$
+        {formatToDollars(startingPrice)}{' '}
+      </p>
 
       <div className='mt-4 flex gap-2'>
         <Dialog>
@@ -70,13 +64,16 @@ const ItemCard: FC<ItemCardProps> = ({
               name={name}
               description={description}
               startingPrice={startingPrice}
+              bidInterval={bidInterval}
             />
           </DialogContent>
         </Dialog>
 
-        <Button variant='secondary' className='flex-1'>
-          Bid Now
-        </Button>
+        {!isExpired && (
+          <Button variant='secondary' className='flex-1'>
+            Bid Now
+          </Button>
+        )}
       </div>
     </div>
   );

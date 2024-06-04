@@ -1,20 +1,22 @@
 import { FC } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { formatToDollars } from '@/utils/currency';
+import { FileImage } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
-import ItemInfoDialog from '../ItemInfoDialog';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
+import ItemInfoDialog from './itemInfo';
 
-type BiddingCardProps = {
+export type BiddingCardProps = {
   id: number;
   name: string;
   description: string;
   startingPrice: number;
+  bidInterval: number;
+  currentBid: number;
   className?: string;
   isExpired?: boolean;
 };
@@ -24,40 +26,40 @@ const BiddingCard: FC<BiddingCardProps> = ({
   name,
   description,
   startingPrice,
+  bidInterval,
+  currentBid,
   className,
+  isExpired,
 }) => {
   return (
     <div
       className={twMerge(
         className,
-        'flex flex-col gap-2 p-4 rounded-lg border border-gray-500/15 hover:shadow-lg hover:border-gray-500/50 hover:rounded-sm cursor-default'
+        'flex flex-col p-4 rounded-lg border border-gray-500/15 hover:shadow-lg hover:border-gray-500/50 cursor-default'
       )}
     >
-      <p className='text-sm text-gray-500'>Available Till:</p>
+      <p className='truncate'>{name}</p>
 
-      <Image
-        src='./placeholder_image.svg'
-        alt='Item Image'
-        width='100'
-        height='100'
-        className='w-full rounded-sm'
-      />
+      {isExpired ? (
+        <p className='text-xs sm:text-sm text-orange-500'>Ended on:</p>
+      ) : (
+        <p className='text-xs sm:text-sm text-gray-500'>Available Till:</p>
+      )}
 
-      <div className='flex-1 space-y-1'>
-        <div className='text-lg flex items-end justify-between gap-2'>
-          <p className='flex-1 font-medium truncate'>{name}</p>
-
-          <p className='text-green-500'>${formatToDollars(startingPrice)}</p>
-        </div>
-
-        <p className='line-clamp-2 font-extralight opacity-75'>{description}</p>
+      <div className='my-2 h-40 sm:h-52 flex items-center justify-center rounded-sm bg-black/15 dark:bg-white/15'>
+        <FileImage size='30' />
       </div>
 
-      <p className='font-medium text-2xl text-red-500'>
-        ${formatToDollars(startingPrice)}
-        <span className='ml-2 font-light text-sm text-gray-500'>
-          current bid
+      <p className='text-base sm:text-lg text-right'>
+        <span className='font-light text-sm text-gray-500'>
+          Starting price:{' '}
         </span>
+        ${formatToDollars(startingPrice)}
+      </p>
+
+      <p className='text-xl sm:text-2xl text-right text-red-500'>
+        <span className='font-light text-sm text-gray-500'>Current Bid: </span>
+        {currentBid === 0 ? 'N/A' : '$' + formatToDollars(currentBid)}
       </p>
 
       <div className='mt-4 flex gap-2'>
@@ -73,13 +75,16 @@ const BiddingCard: FC<BiddingCardProps> = ({
               name={name}
               description={description}
               startingPrice={startingPrice}
+              bidInterval={bidInterval}
             />
           </DialogContent>
         </Dialog>
 
-        <Button variant='secondary' className='flex-1' asChild>
-          <Link href={`/item/${id}`}>Bid Item</Link>
-        </Button>
+        {!isExpired && (
+          <Button variant='secondary' className='flex-1' asChild>
+            <Link href={`/item/${id}`}>Bid Item</Link>
+          </Button>
+        )}
       </div>
     </div>
   );
