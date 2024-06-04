@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import ArrowLinkButton from '@/components/ArrowLinkButton';
+import ArrowLinkButton from '@/components/arrowLinkButton';
 
 const EmptyUserState = () => {
   return (

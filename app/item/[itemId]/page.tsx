@@ -1,5 +1,5 @@
-import { auth } from '@/app/auth';
-import ArrowLinkButton from '@/components/ArrowLinkButton';
+import { auth } from '@/auth';
+import ArrowLinkButton from '@/components/arrowLinkButton';
 import BidCard from '@/components/cards/bidCard';
 import Container from '@/components/layout/container';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getBidsForItem } from '@/data-access/bids';
 import { getItem } from '@/data-access/item';
 import { formatToDollars } from '@/utils/currency';
+import { formatDate } from '@/utils/dateAndTime';
 import { FileImage } from 'lucide-react';
 
 import EmptyItemState from './EmptyState';
@@ -57,7 +58,7 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
             <span className='font-medium text-red-500'>{item.name}</span>
           </h1>
 
-          <div className='my-2 h-52 sm:h-80 flex items-center justify-center rounded-sm bg-black/15 dark:bg-white/15'>
+          <div className='my-2 h-52 sm:h-80 flex items-center justify-center rounded-sm bg-muted'>
             <FileImage size='30' />
           </div>
 
@@ -71,7 +72,7 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
               <span className='block text-sm text-gray-500'>
                 Available Till
               </span>
-              Jul 15, 2024
+              {formatDate(item.endDate)}
             </p>
 
             <p className='col-span-1 text-lg'>
@@ -95,9 +96,8 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
           </div>
 
           <form action={createBidAction.bind(null, item.id)}>
-            <Button disabled={!canBid} className='mt-4 mb-2 w-full'>
-              Place Bid for $
-              {formatToDollars(item.currentBid + item.bidInterval)}
+            <Button disabled={!canBid} className='mt-4 w-full'>
+              Place Bid
             </Button>
           </form>
 
@@ -128,7 +128,7 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
             <h2 className='ml-1 mb-2 text-xl'>Current Bids</h2>
 
             {hasBids ? (
-              <ul className='space-y-2'>
+              <ul className='divide-y-2 divide-muted'>
                 {allBids.map((bid: any) => {
                   return <BidCard key={bid.id} {...bid} />;
                 })}

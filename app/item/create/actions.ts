@@ -1,33 +1,41 @@
 'use server';
 
-import { auth } from '@/app/auth';
+import { auth } from '@/auth';
 import { database } from '@/db/database';
 import { items as itemsSchema } from '@/db/schema';
 
-export async function createItemAction(formData: FormData) {
+export async function createItemAction({
+  name,
+  description,
+  startingPrice,
+  bidInterval,
+  endDate,
+}: {
+  name: string;
+  description: string;
+  startingPrice: number;
+  bidInterval: number;
+  endDate: Date;
+}) {
   const session = await auth();
 
   if (!session) {
-    throw new Error('User Unauthorized');
+    throw new Error('You must be logged in to create an item.');
   }
 
-  const user = session.user;
+  const userId = session?.user?.id;
 
-  if (!user || !user.id) {
-    throw new Error('User Unauthorized');
+  if (!userId) {
+    throw new Error('You must be logged in to create an item.');
   }
-
-  const startingPrice = formData.get('startingPrice') as string;
-  const priceAsCents = Math.floor(parseFloat(startingPrice) * 100);
-
-  const bidInterval = (formData.get('bidInterval') as string) || '6.9';
-  const intervalAsCents = Math.floor(parseFloat(bidInterval) * 100);
 
   await database.insert(itemsSchema).values({
-    userId: user.id!,
-    name: formData.get('name') as string,
-    description: formData.get('description') as string,
-    startingPrice: priceAsCents,
-    bidInterval: intervalAsCents,
+    userId: userId,
+    name,
+    description,
+    startingPrice,
+    bidInterval,
+    endDate,
+    createdOn: new Date(),
   });
 }

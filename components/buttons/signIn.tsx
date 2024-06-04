@@ -1,4 +1,4 @@
-import { signIn } from '@/app/auth';
+import { signIn } from '@/auth';
 import { LogIn } from 'lucide-react';
 
 import { Button } from '../ui/button';

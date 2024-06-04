@@ -1,3 +1,4 @@
+import { relations } from 'drizzle-orm';
 import {
   integer,
   pgTable,
@@ -59,6 +60,7 @@ export const bids = pgTable('bb_bids', {
   itemId: serial('itemId')
     .notNull()
     .references(() => items.id, { onDelete: 'cascade' }),
+  timestamp: timestamp('timestamp', { mode: 'date' }).notNull(),
 });
 
 export const items = pgTable('bb_items', {
@@ -71,4 +73,13 @@ export const items = pgTable('bb_items', {
   startingPrice: integer('startingPrice').notNull().default(0),
   currentBid: integer('currentBid').notNull().default(0),
   bidInterval: integer('bidInterval').notNull().default(0),
+  endDate: timestamp('endDate', { mode: 'date' }).notNull(),
+  createdOn: timestamp('createdOn', { mode: 'date' }).notNull(),
 });
+
+export const usersRelations = relations(bids, ({ one }) => ({
+  user: one(users, {
+    fields: [bids.userId],
+    references: [users.id],
+  }),
+}));

@@ -19,6 +19,8 @@ const AvailableItems = async ({ userId }: { userId: string }) => {
               description={item.description}
               startingPrice={item.startingPrice}
               bidInterval={item.bidInterval}
+              endDate={item.endDate}
+              createdOn={item.createdOn}
               className='col-span-1'
             />
           ))}

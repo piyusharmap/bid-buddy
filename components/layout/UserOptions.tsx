@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { auth } from '@/app/auth';
+import { auth } from '@/auth';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { User2 } from 'lucide-react';
 
-import { ModeToggleItem } from '../theme-toggle';
+import { ModeToggleItem } from '../themeToggle';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 const UserOptions = async () => {

@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 
 import { formatToDollars } from '@/utils/currency';
+import { formatDate } from '@/utils/dateAndTime';
 import { FileImage } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
@@ -17,6 +18,8 @@ export type BiddingCardProps = {
   startingPrice: number;
   bidInterval: number;
   currentBid: number;
+  endDate: Date;
+  createdOn: Date;
   className?: string;
   isExpired?: boolean;
 };
@@ -28,6 +31,8 @@ const BiddingCard: FC<BiddingCardProps> = ({
   startingPrice,
   bidInterval,
   currentBid,
+  endDate,
+  createdOn,
   className,
   isExpired,
 }) => {
@@ -41,25 +46,32 @@ const BiddingCard: FC<BiddingCardProps> = ({
       <p className='truncate'>{name}</p>
 
       {isExpired ? (
-        <p className='text-xs sm:text-sm text-orange-500'>Ended on:</p>
+        <p className='font-light text-xs sm:text-sm text-orange-500'>
+          <span className='font-light text-gray-500'>Ended on: </span>
+          {formatDate(endDate)}
+        </p>
       ) : (
-        <p className='text-xs sm:text-sm text-gray-500'>Available Till:</p>
+        <p className='text-xs sm:text-sm'>
+          <span className='font-light text-gray-500'>Available Till: </span>
+          {formatDate(endDate)}
+        </p>
       )}
 
-      <div className='my-2 h-40 sm:h-52 flex items-center justify-center rounded-sm bg-black/15 dark:bg-white/15'>
+      <div className='my-2 h-40 sm:h-52 flex items-center justify-center rounded-sm bg-muted'>
         <FileImage size='30' />
       </div>
 
-      <p className='text-base sm:text-lg text-right'>
-        <span className='font-light text-sm text-gray-500'>
-          Starting price:{' '}
-        </span>
+      <p className='text-base sm:text-lg'>
         ${formatToDollars(startingPrice)}
+        <span className='font-light text-sm text-gray-500'>
+          {' '}
+          Starting price
+        </span>
       </p>
 
-      <p className='text-xl sm:text-2xl text-right text-red-500'>
-        <span className='font-light text-sm text-gray-500'>Current Bid: </span>
-        {currentBid === 0 ? 'nil' : '$' + formatToDollars(currentBid)}
+      <p className='text-xl sm:text-2xl text-red-500'>
+        ${formatToDollars(currentBid)}
+        <span className='font-light text-sm text-gray-500'> Current Bid</span>
       </p>
 
       <div className='mt-4 flex gap-2'>
@@ -76,6 +88,8 @@ const BiddingCard: FC<BiddingCardProps> = ({
               description={description}
               startingPrice={startingPrice}
               bidInterval={bidInterval}
+              endDate={endDate}
+              createdOn={createdOn}
             />
           </DialogContent>
         </Dialog>

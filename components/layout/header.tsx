@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { auth } from '@/app/auth';
+import { auth } from '@/auth';
 
 import HeaderLogo from '../../public/bb_logo.svg';
 import CreateItemButton from '../buttons/createItem';

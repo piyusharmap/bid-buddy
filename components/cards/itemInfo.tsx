@@ -3,6 +3,7 @@
 import { FC } from 'react';
 
 import { formatToDollars } from '@/utils/currency';
+import { formatDate } from '@/utils/dateAndTime';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { FileImage } from 'lucide-react';
 
@@ -13,6 +14,8 @@ type ItemInfoProps = {
   description: string;
   startingPrice: number;
   bidInterval: number;
+  endDate: Date;
+  createdOn: Date;
 };
 
 const ItemInfoDialog: FC<ItemInfoProps> = ({
@@ -20,18 +23,18 @@ const ItemInfoDialog: FC<ItemInfoProps> = ({
   description,
   startingPrice,
   bidInterval,
+  endDate,
+  createdOn,
 }) => {
   return (
     <>
       <DialogHeader>
         <DialogTitle className='text-xl'>{name}</DialogTitle>
-        <DialogDescription className='text-justify'>
-          {description}
-        </DialogDescription>
+        <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
 
       <div className='grid grid-cols-2 gap-4'>
-        <div className='my-2 h-52 col-span-2 flex items-center justify-center rounded-sm bg-black/15 dark:bg-white/15'>
+        <div className='h-52 col-span-2 flex items-center justify-center rounded-sm bg-black/15 dark:bg-white/15'>
           <FileImage size='30' />
         </div>
 
@@ -53,14 +56,14 @@ const ItemInfoDialog: FC<ItemInfoProps> = ({
           <span className='block font-medium text-sm text-gray-500'>
             Created on
           </span>
-          May 23, 2024
+          {formatDate(createdOn)}
         </p>
 
         <p className='col-span-1'>
           <span className='block font-medium text-sm text-gray-500'>
             Available Till
           </span>
-          Jun 5, 2024
+          {formatDate(endDate)}
         </p>
       </div>
     </>

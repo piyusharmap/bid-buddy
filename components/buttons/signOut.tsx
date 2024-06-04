@@ -1,4 +1,4 @@
-import { signOut } from '@/app/auth';
+import { signOut } from '@/auth';
 import { LogOut } from 'lucide-react';
 
 import { Button } from '../ui/button';

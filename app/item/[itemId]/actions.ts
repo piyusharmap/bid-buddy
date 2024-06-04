@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { auth } from '@/app/auth';
+import { auth } from '@/auth';
 import { database } from '@/db/database';
 import { bids, items } from '@/db/schema';
 import { eq } from 'drizzle-orm';
@@ -11,13 +11,13 @@ export const createBidAction = async (itemId: number) => {
   const session = await auth();
 
   if (!session) {
-    throw new Error('User Unauthorized');
+    throw new Error('You must be logged in to place a bid.');
   }
 
-  const user = session?.user;
+  const userId = session?.user?.id;
 
-  if (!user || !user.id) {
-    throw new Error('User Unauthorized');
+  if (!userId) {
+    throw new Error('You must be logged in to place a bid.');
   }
 
   const item = await database.query.items.findFirst({
@@ -38,7 +38,8 @@ export const createBidAction = async (itemId: number) => {
   await database.insert(bids).values({
     amount: latestBidValue,
     itemId: itemId,
-    userId: session?.user?.id!,
+    userId: userId,
+    timestamp: new Date(),
   });
 
   await database
