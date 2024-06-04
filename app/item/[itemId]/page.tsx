@@ -6,37 +6,14 @@ import BidCard from '@/components/cards/BidCard';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getItem } from '@/data-access/item';
+import { database } from '@/db/database';
+import { bids } from '@/db/schema';
 import { formatToDollars } from '@/utils/currency';
+import { desc, eq } from 'drizzle-orm';
 
 import PlaceholderImage from '../../../public/placeholder_image.svg';
 import EmptyItemState from './EmptyState';
-
-const bids = [
-  // {
-  //   id: 1,
-  //   user: 'Jake',
-  //   bidAmount: '$100',
-  //   timestamp: new Date(),
-  // },
-  // {
-  //   id: 2,
-  //   user: 'Alen',
-  //   bidAmount: '$100',
-  //   timestamp: new Date(),
-  // },
-  // {
-  //   id: 3,
-  //   user: 'Phill',
-  //   bidAmount: '$100',
-  //   timestamp: new Date(),
-  // },
-  // {
-  //   id: 4,
-  //   user: 'Santiago',
-  //   bidAmount: '$100',
-  //   timestamp: new Date(),
-  // },
-];
+import { createBidAction } from './actions';
 
 const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
   const session = await auth();
@@ -53,9 +30,14 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
 
   const item = await getItem(parseInt(itemId));
 
+  const allBids = await database.query.bids.findMany({
+    where: eq(bids.itemId, parsedItemId),
+    orderBy: desc(bids.amount),
+  });
+
   const canBid = session && item?.userId !== session?.user?.id;
 
-  const hasBids = bids.length !== 0;
+  const hasBids = allBids.length !== 0;
 
   return (
     <div className='max-w-7xl mx-auto px-5 pt-6 space-y-4'>
@@ -103,7 +85,7 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
                 <span className='block text-sm text-gray-500'>
                   Bidding Interval
                 </span>
-                $6.9
+                ${formatToDollars(item.bidInterval)}
               </p>
 
               <p className='col-span-1 text-3xl'>
@@ -114,20 +96,22 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
               </p>
 
               <p className='col-span-1 text-3xl text-green-500'>
-                <span className='block text-sm text-gray-500'>
-                  Current Price
-                </span>
-                ${formatToDollars(item.startingPrice)}
+                <span className='block text-sm text-gray-500'>Current Bid</span>
+                ${formatToDollars(item.currentBid)}
               </p>
             </div>
 
-            <Button disabled={!canBid} className='mt-4 mb-2 w-full'>
-              Place Bid
-            </Button>
+            <form action={createBidAction.bind(null, item.id)}>
+              <Button disabled={!canBid} className='mt-4 mb-2 w-full'>
+                Place Bid for $
+                {formatToDollars(item.currentBid + item.bidInterval)}
+              </Button>
+            </form>
 
             {!canBid && (
               <p className='text-gray-500 text-sm'>
-                Either you are not logged in or you are self bidding on an item.
+                Either you are not logged in or you are self bidding on this
+                item.
               </p>
             )}
           </div>
@@ -152,13 +136,15 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
               <h2 className='mb-2 font-medium text-xl'>Current Bids</h2>
               {hasBids ? (
                 <ul className='space-y-2'>
-                  {bids.map((bid: any) => {
+                  {allBids.map((bid: any) => {
                     return <BidCard key={bid.id} {...bid} />;
                   })}
                 </ul>
               ) : (
                 <p className='p-4 text-center text-gray-500 italic'>
                   There are no bids available for this item.
+                  <br />
+                  Be the first one to bid.
                 </p>
               )}
             </TabsContent>

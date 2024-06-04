@@ -52,6 +52,13 @@ export const sessions = pgTable('bb_session', {
 
 export const bids = pgTable('bb_bids', {
   id: serial('id').primaryKey(),
+  amount: integer('amount').notNull(),
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  itemId: serial('itemId')
+    .notNull()
+    .references(() => items.id, { onDelete: 'cascade' }),
 });
 
 export const items = pgTable('bb_items', {
@@ -62,4 +69,6 @@ export const items = pgTable('bb_items', {
   name: text('name').notNull(),
   description: text('description').notNull(),
   startingPrice: integer('startingPrice').notNull().default(0),
+  currentBid: integer('currentBid').notNull().default(0),
+  bidInterval: integer('bidInterval').notNull().default(0),
 });

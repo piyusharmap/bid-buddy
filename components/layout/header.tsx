@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { auth } from '@/app/auth';
-import { PlusCircle } from 'lucide-react';
+import { ImagePlus } from 'lucide-react';
 
 import HeaderLogo from '../../public/bb_logo.svg';
 import SignIn from '../SignIn';
@@ -26,7 +26,7 @@ const Header = async () => {
         {session && (
           <Button asChild>
             <Link href='/item/create'>
-              <PlusCircle size='16' />
+              <ImagePlus size='16' />
               <span className='ml-2 hidden sm:block'>Create Item</span>
             </Link>
           </Button>
@@ -34,7 +34,7 @@ const Header = async () => {
 
         {session ? <SignOut /> : <SignIn />}
 
-        <UserOptions userId={session?.user?.id} />
+        <UserOptions />
       </div>
     </div>
   );

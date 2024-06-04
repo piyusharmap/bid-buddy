@@ -23,7 +23,9 @@ const AvailableItems = async ({ userId }: { userId: string }) => {
           ))}
         </div>
       ) : (
-        <p>No items in your list</p>
+        <p className='p-4 text-gray-500 text-center italic'>
+          No items in your list
+        </p>
       )}
     </div>
   );

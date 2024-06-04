@@ -44,24 +44,21 @@ const BiddingCard: FC<BiddingCardProps> = ({
       />
 
       <div className='flex-1 space-y-1'>
-        <p className='flex-1 font-medium truncate'>{name}</p>
+        <div className='text-lg flex items-end justify-between gap-2'>
+          <p className='flex-1 font-medium truncate'>{name}</p>
 
-        <p className='line-clamp-2 font-light opacity-75'>{description}</p>
+          <p className='text-green-500'>${formatToDollars(startingPrice)}</p>
+        </div>
+
+        <p className='line-clamp-2 font-extralight opacity-75'>{description}</p>
       </div>
 
-      <div className='flex flex-col'>
-        <p className='font-medium text-2xl text-red-500'>
-          ${formatToDollars(startingPrice)}
-          <span className='ml-2 font-light text-sm text-gray-500'>
-            current bid
-          </span>
-        </p>
-
-        <p>
-          <span className='mr-1 font-light text-sm text-gray-500'>up by</span>
-          $2
-        </p>
-      </div>
+      <p className='font-medium text-2xl text-red-500'>
+        ${formatToDollars(startingPrice)}
+        <span className='ml-2 font-light text-sm text-gray-500'>
+          current bid
+        </span>
+      </p>
 
       <div className='mt-4 flex gap-2'>
         <Dialog>

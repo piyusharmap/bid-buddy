@@ -8,12 +8,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ImagePlus, Images, User2 } from 'lucide-react';
+import { User2 } from 'lucide-react';
 
 import { ModeToggleItem } from '../theme-toggle';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
-const UserOptions = async ({ userId }: { userId?: string }) => {
+const UserOptions = async () => {
   const session = await auth();
 
   return (

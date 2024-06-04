@@ -54,7 +54,7 @@ const ItemCard: FC<ItemCardProps> = ({
           <p className='text-green-500'>${formatToDollars(startingPrice)}</p>
         </div>
 
-        <p className='line-clamp-2 font-light opacity-75'>{description}</p>
+        <p className='line-clamp-2 font-extralight opacity-75'>{description}</p>
       </div>
 
       <div className='mt-4 flex gap-2'>
