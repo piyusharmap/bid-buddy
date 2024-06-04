@@ -2,39 +2,34 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { auth } from '@/app/auth';
-import { ImagePlus } from 'lucide-react';
 
 import HeaderLogo from '../../public/bb_logo.svg';
-import SignIn from '../SignIn';
-import SignOut from '../SignOut';
-import { Button } from '../ui/button';
-import UserOptions from './UserOptions';
+import CreateItemButton from '../buttons/createItem';
+import SignInButton from '../buttons/signIn';
+import SignOutButton from '../buttons/signOut';
+import UserOptions from './userOptions';
 
 const Header = async () => {
   const session = await auth();
 
   return (
-    <div className='mx-auto max-w-7xl px-5 py-2 flex items-center justify-between border-b border-gray-300 dark:border-gray-800'>
-      <Link href='/' className='flex items-end gap-2 font-medium'>
-        <Image src={HeaderLogo} alt='BidBuddy' width='35' height='35' />
-        <p className='hidden sm:block font-semibold text-lg'>
-          Bid<span className='text-red-500'>Buddy</span>
-        </p>
-      </Link>
+    <div className='sticky top-0 left-0 bg-background/50 backdrop-blur-lg'>
+      <div className='max-w-7xl mx-auto px-5 py-2 flex items-center justify-between'>
+        <Link href='/' className='flex items-end gap-2 hover:opacity-85'>
+          <Image src={HeaderLogo} alt='BidBuddy' width='35' height='35' />
 
-      <div className='flex gap-2 items-center'>
-        {session && (
-          <Button asChild>
-            <Link href='/item/create'>
-              <ImagePlus size='16' />
-              <span className='ml-2 hidden sm:block'>Create Item</span>
-            </Link>
-          </Button>
-        )}
+          <h2 className='hidden sm:block font-semibold text-lg'>
+            Bid<span className='text-red-500'>Buddy</span>
+          </h2>
+        </Link>
 
-        {session ? <SignOut /> : <SignIn />}
+        <div className='flex gap-2 items-center'>
+          {session && <CreateItemButton />}
 
-        <UserOptions />
+          {session ? <SignOutButton /> : <SignInButton />}
+
+          <UserOptions />
+        </div>
       </div>
     </div>
   );

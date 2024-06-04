@@ -1,28 +1,27 @@
+import { FC } from 'react';
+
 import Image from 'next/image';
 
-const ProfileCard = async ({
-  name,
-  email,
-  imageSrc,
-}: {
+type UserProps = {
   name: string | null;
   email: string;
   imageSrc: string | null;
-}) => {
+};
+
+const ProfileCard: FC<UserProps> = ({ name, email, imageSrc }) => {
   return (
-    <div className='flex gap-2 items-center flex-wrap'>
+    <div className='flex items-end gap-4 flex-wrap'>
       <Image
         src={imageSrc || ''}
         alt='Profile Image'
         width='70'
         height='70'
-        className='border-2 border-gray-500/15 rounded-full'
+        className='ring-2 ring-gray-500/15 rounded-lg'
       />
 
       <div>
-        <h1 className='text-xl sm:text-2xl font-medium'>
-          {name ? name : 'N/A'}
-        </h1>
+        <h2 className='text-xl sm:text-2xl'>{name ? name : 'N/A'}</h2>
+
         <p className='text-gray-500'>{email}</p>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import { signOut } from '@/app/auth';
 import { LogOut } from 'lucide-react';
 
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
-const SignOut = () => {
+export default function SignOutButton() {
   return (
     <form
       action={async () => {
@@ -17,6 +17,4 @@ const SignOut = () => {
       </Button>
     </form>
   );
-};
-
-export default SignOut;
+}

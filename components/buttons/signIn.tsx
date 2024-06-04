@@ -1,9 +1,9 @@
 import { signIn } from '@/app/auth';
 import { LogIn } from 'lucide-react';
 
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
-const SignIn = () => {
+export default function SignInButton() {
   return (
     <form
       action={async () => {
@@ -17,6 +17,4 @@ const SignIn = () => {
       </Button>
     </form>
   );
-};
-
-export default SignIn;
+}

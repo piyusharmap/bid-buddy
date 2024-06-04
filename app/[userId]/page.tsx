@@ -1,4 +1,5 @@
 import ProfileCard from '@/components/cards/ProfileCard';
+import Container from '@/components/layout/container';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import EmptyUserState from './EmptyState';
@@ -13,46 +14,50 @@ const Profile = async ({
 }) => {
   const user = await getUserAction(userId);
 
-  return (
-    <div className='max-w-7xl mx-auto px-5 pt-6'>
-      {!user ? (
+  if (!user) {
+    return (
+      <Container>
         <EmptyUserState />
-      ) : (
-        <>
-          <ProfileCard
-            name={user.name}
-            email={user.email}
-            imageSrc={user.image}
-          />
+      </Container>
+    );
+  }
 
-          <Tabs defaultValue='items' className='mt-6 space-y-4'>
-            <div className='flex justify-end'>
-              <TabsList>
-                <TabsTrigger value='items' className='px-5 font-medium'>
-                  Items
-                </TabsTrigger>
+  const userInfo = {
+    name: user.name,
+    email: user.email,
+    imageSrc: user.image,
+  };
 
-                <TabsTrigger value='bids' className='px-5 font-medium'>
-                  Bids
-                </TabsTrigger>
-              </TabsList>
-            </div>
+  return (
+    <Container>
+      <ProfileCard {...userInfo} />
 
-            <TabsContent value='items' className='space-y-2'>
-              <h2 className='font-medium text-xl'>My Items</h2>
+      <Tabs defaultValue='items' className='mt-6 space-y-4'>
+        <div className='flex justify-end'>
+          <TabsList>
+            <TabsTrigger value='items' className='px-5 font-medium'>
+              Items
+            </TabsTrigger>
 
-              <Items userId={userId} />
-            </TabsContent>
+            <TabsTrigger value='bids' className='px-5 font-medium'>
+              Bids
+            </TabsTrigger>
+          </TabsList>
+        </div>
 
-            <TabsContent value='bids' className='space-y-2'>
-              <h2 className='font-medium text-xl'>My Bids</h2>
+        <TabsContent value='items' className='space-y-2'>
+          <h2 className='font-medium text-xl'>My Items</h2>
 
-              <Bids userId={userId} />
-            </TabsContent>
-          </Tabs>
-        </>
-      )}
-    </div>
+          <Items userId={userId} />
+        </TabsContent>
+
+        <TabsContent value='bids' className='space-y-2'>
+          <h2 className='font-medium text-xl'>My Bids</h2>
+
+          <Bids userId={userId} />
+        </TabsContent>
+      </Tabs>
+    </Container>
   );
 };
 
