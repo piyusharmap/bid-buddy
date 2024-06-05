@@ -1,8 +1,7 @@
 import Image from 'next/image';
 
-import ArrowLinkButton from '@/components/arrowLinkButton';
-
-import NotAvailable from '../../../public/not_available.svg';
+import NotAvailable from '../../../../public/not_available.svg';
+import ArrowLinkButton from '../../../components/arrowLinkButton';
 
 const EmptyItemState = () => {
   return (

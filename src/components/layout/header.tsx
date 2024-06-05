@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { auth } from '@/auth';
 
-import HeaderLogo from '../../public/bb_logo.svg';
+import HeaderLogo from '../../../public/bb_logo.svg';
 import CreateItemButton from '../buttons/createItem';
 import SignInButton from '../buttons/signIn';
 import SignOutButton from '../buttons/signOut';
@@ -14,7 +14,7 @@ const Header = async () => {
 
   return (
     <div className='sticky top-0 left-0 bg-background/50 backdrop-blur-lg'>
-      <div className='max-w-7xl mx-auto px-5 py-2 flex items-center justify-between'>
+      <div className='max-w-7xl mx-auto px-3 py-2 flex items-center justify-between'>
         <Link href='/' className='flex items-end gap-2 hover:opacity-85'>
           <Image src={HeaderLogo} alt='BidBuddy' width='35' height='35' />
 

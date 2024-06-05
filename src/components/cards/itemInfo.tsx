@@ -2,10 +2,11 @@
 
 import { FC } from 'react';
 
+import Image from 'next/image';
+
 import { formatToDollars } from '@/utils/currency';
 import { formatDate } from '@/utils/dateAndTime';
 import { DialogTitle } from '@radix-ui/react-dialog';
-import { FileImage } from 'lucide-react';
 
 import { DialogDescription, DialogHeader } from '../ui/dialog';
 
@@ -34,8 +35,14 @@ const ItemInfoDialog: FC<ItemInfoProps> = ({
       </DialogHeader>
 
       <div className='grid grid-cols-2 gap-4'>
-        <div className='h-52 col-span-2 flex items-center justify-center rounded-sm bg-black/15 dark:bg-white/15'>
-          <FileImage size='30' />
+        <div className='my-2 h-40 sm:h-52 col-span-2 flex items-center justify-center'>
+          <Image
+            src='./placeholder_image.svg'
+            alt='Item Image'
+            width='150'
+            height='150'
+            className='w-full h-full object-contain'
+          />
         </div>
 
         <p className='col-span-1 text-2xl'>

@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { REM as FontSans } from 'next/font/google';
 
-import Header from '@/components/layout/header';
-import { ThemeProvider } from '@/components/themeProvider';
-import { cn } from '@/lib/utils';
-
+import Header from '../components/layout/header';
+import { ThemeProvider } from '../components/themeProvider';
+import { cn } from '../lib/utils';
 import './globals.css';
 
 export const metadata: Metadata = {

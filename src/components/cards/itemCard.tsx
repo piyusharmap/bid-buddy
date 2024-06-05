@@ -1,49 +1,50 @@
 import { FC } from 'react';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { formatToDollars } from '@/utils/currency';
 import { formatDate } from '@/utils/dateAndTime';
-import { FileImage } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import ItemInfoDialog from './itemInfo';
 
-export type BiddingCardProps = {
+export type ItemCardProps = {
   id: number;
   name: string;
   description: string;
   startingPrice: number;
   bidInterval: number;
-  currentBid: number;
   endDate: Date;
   createdOn: Date;
   className?: string;
   isExpired?: boolean;
+  isLive?: boolean;
 };
 
-const BiddingCard: FC<BiddingCardProps> = ({
+const ItemCard: FC<ItemCardProps> = ({
   id,
   name,
   description,
   startingPrice,
   bidInterval,
-  currentBid,
   endDate,
   createdOn,
   className,
   isExpired,
+  isLive,
 }) => {
   return (
     <div
       className={twMerge(
         className,
-        'flex flex-col p-4 rounded-lg border border-gray-500/15 hover:shadow-lg hover:border-gray-500/50 cursor-default'
+        'group relative flex flex-col p-4 rounded-lg border border-gray-500/15 hover:shadow-lg hover:border-gray-500/50 cursor-default'
       )}
     >
-      <p className='truncate'>{name}</p>
+      <p className='text-lg truncate'>{name}</p>
 
       {isExpired ? (
         <p className='font-light text-xs sm:text-sm text-orange-500'>
@@ -57,22 +58,22 @@ const BiddingCard: FC<BiddingCardProps> = ({
         </p>
       )}
 
-      <div className='my-2 h-40 sm:h-52 flex items-center justify-center rounded-sm bg-muted'>
-        <FileImage size='30' />
+      <div className='my-2 h-40 sm:h-52 flex items-center justify-center'>
+        <Image
+          src='./placeholder_image.svg'
+          alt='Item Image'
+          width='150'
+          height='150'
+          className='w-full h-full object-contain'
+        />
       </div>
 
-      <p className='text-base sm:text-lg'>
-        ${formatToDollars(startingPrice)}
-        <span className='font-light text-sm text-gray-500'>
-          {' '}
-          Starting price
-        </span>
-      </p>
-
-      <p className='text-xl sm:text-2xl text-red-500'>
-        ${formatToDollars(currentBid)}
-        <span className='font-light text-sm text-gray-500'> Current Bid</span>
-      </p>
+      <div className='flex justify-between items-end'>
+        <p className='font-light text-sm text-gray-500'>Starting Price</p>
+        <p className='text-base sm:text-lg'>
+          ${formatToDollars(startingPrice)}
+        </p>
+      </div>
 
       <div className='mt-4 flex gap-2'>
         <Dialog>
@@ -94,9 +95,15 @@ const BiddingCard: FC<BiddingCardProps> = ({
           </DialogContent>
         </Dialog>
 
-        {!isExpired && (
-          <Button variant='secondary' className='flex-1' asChild>
-            <Link href={`/item/${id}`}>Bid Item</Link>
+        {!isExpired && !isLive && (
+          <Button variant='secondary' className='flex-1'>
+            Bid Now
+          </Button>
+        )}
+
+        {isLive && (
+          <Button variant='link' className='flex-1'>
+            <Link href={`/item/${id}`}>View Bids</Link>
           </Button>
         )}
       </div>
@@ -104,4 +111,4 @@ const BiddingCard: FC<BiddingCardProps> = ({
   );
 };
 
-export default BiddingCard;
+export default ItemCard;

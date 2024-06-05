@@ -1,17 +1,17 @@
 import ItemCard from '@/components/cards/itemCard';
 
-import { getUserItemsAction } from './actions';
+import { getAvailableItemsAction } from './actions';
 
 const AvailableItems = async ({ userId }: { userId: string }) => {
-  const myItemsList = await getUserItemsAction(userId);
+  const availableItemsList = await getAvailableItemsAction(userId);
 
-  const hasItems = myItemsList.length > 0;
+  const hasItems = availableItemsList.length > 0;
 
   return (
     <div>
       {hasItems ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-          {myItemsList.map((item) => (
+          {availableItemsList.map((item) => (
             <ItemCard
               key={item.id}
               id={item.id}
@@ -27,7 +27,7 @@ const AvailableItems = async ({ userId }: { userId: string }) => {
         </div>
       ) : (
         <p className='p-4 text-gray-500 text-center italic'>
-          No items in your list
+          No items present in available list.
         </p>
       )}
     </div>

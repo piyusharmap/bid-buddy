@@ -1,15 +1,22 @@
+import Image from 'next/image';
+
 import { auth } from '@/auth';
 import ArrowLinkButton from '@/components/arrowLinkButton';
 import BidCard from '@/components/cards/bidCard';
 import Container from '@/components/layout/container';
 import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getBidsForItem } from '@/data-access/bids';
 import { getItem } from '@/data-access/item';
 import { formatToDollars } from '@/utils/currency';
 import { formatDate } from '@/utils/dateAndTime';
-import { FileImage } from 'lucide-react';
 
+import PlaceholderImage from '../../../../public/placeholder_image.svg';
 import EmptyItemState from './EmptyState';
 import { createBidAction } from './actions';
 
@@ -45,7 +52,7 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
   return (
     <Container className='space-y-4'>
       <div className='grid grid-cols-4 gap-6'>
-        <div className='col-span-4 md:col-span-2'>
+        <div className='col-span-4 md:col-span-2 space-y-4'>
           <ArrowLinkButton
             title='All Bids'
             link='/'
@@ -53,13 +60,19 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
             className='col-span-4'
           />
 
-          <h1 className='my-4 col-span-2 font-light text-xl sm:text-2xl md:text-3xl truncate'>
+          <h1 className='col-span-2 font-light text-xl sm:text-2xl md:text-3xl'>
             Bidding for{' '}
             <span className='font-medium text-red-500'>{item.name}</span>
           </h1>
 
-          <div className='my-2 h-52 sm:h-80 flex items-center justify-center rounded-sm bg-muted'>
-            <FileImage size='30' />
+          <div className='my-2 h-52 sm:h-80 flex items-center justify-center rounded-sm'>
+            <Image
+              src={PlaceholderImage}
+              alt='Item Image'
+              width='150'
+              height='150'
+              className='w-full h-full object-contain'
+            />
           </div>
 
           <div className='my-4 grid grid-cols-2 gap-4'>
@@ -95,15 +108,31 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
             </p>
           </div>
 
-          <form action={createBidAction.bind(null, item.id)}>
-            <Button disabled={!canBid} className='mt-4 w-full'>
-              Place Bid
-            </Button>
-          </form>
+          {canBid ? (
+            <Popover>
+              <PopoverTrigger className='w-full'>
+                <Button disabled={!canBid} className='w-full'>
+                  Place Bid
+                </Button>
+              </PopoverTrigger>
 
-          {!canBid && (
-            <p className='text-gray-500 text-sm'>
-              Either you are not logged in or you are self bidding on this item.
+              <PopoverContent>
+                <p className='text-sm'>
+                  Think carefully before you place a bid. Once you bid, you
+                  can't take it back, and you're committed to the offer.
+                </p>
+
+                <form action={createBidAction.bind(null, item.id)}>
+                  <Button variant='secondary' className='mt-2'>
+                    Place Bid
+                  </Button>
+                </form>
+              </PopoverContent>
+            </Popover>
+          ) : (
+            <p className='text-orange-500'>
+              Either you are not logged in or you are trying to self bid on this
+              item.
             </p>
           )}
         </div>
@@ -135,9 +164,7 @@ const Item = async ({ params: { itemId } }: { params: { itemId: string } }) => {
               </ul>
             ) : (
               <p className='p-4 text-center text-gray-500 italic'>
-                There are no bids available for this item.
-                <br />
-                Be the first one to bid.
+                There are no bids on this item till now.
               </p>
             )}
           </TabsContent>
