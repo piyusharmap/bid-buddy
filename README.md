@@ -6,7 +6,7 @@
     Bid<span style="color: #ef4444">Buddy</span>
 </h1>
 
-### A plaform designed to handle the process of bidding in most optimal way possible.
+### A platform designed to handle the process of bidding in the most optimal way possible.
 
 ## Features:
 
